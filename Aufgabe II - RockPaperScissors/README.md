@@ -25,5 +25,5 @@ Am Ende werden mittels mySQL_select_amountInput()) die Inforamtionen über die A
 [Wurde von Schulkollege Mayer aufbereitet](https://gitlab.com/sh1n1xs/rock-paper-scissors-data-server/-/blob/af70e8991db2af704d36bf8caa7f304b10c4cfab/example_request.py)
 
 ##### **Ausgeführtes Programm**
-![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/tree/main/Aufgabe%20II%20-%20RockPaperScissors/program_sample.png)
+![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/blob/main/Aufgabe%20II%20-%20RockPaperScissors/program_sample.png)
 
