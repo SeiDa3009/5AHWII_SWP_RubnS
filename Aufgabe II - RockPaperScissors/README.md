@@ -6,6 +6,7 @@ Während des Spielens zahlt das Programm, wie oft welche Auswahl getroffen wurde
 ##### **Was wird dafür benötigt?**
 - [My-Sql-Connector](https://www.w3schools.com/python/python_mysql_getstarted.asp)
 - [Requests](https://www.w3schools.com/python/module_requests.asp)
+- [.exe ausführen](https://gitlab.com/sh1n1xs/rock-paper-scissors-data-server/-/tree/main)
 
 
 ##### **Wie funktioniert das Programm?**
