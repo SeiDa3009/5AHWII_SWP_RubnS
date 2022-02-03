@@ -8,7 +8,8 @@ Weiters sind ein paar Funktionen dazu integriert worden.
 - eine Add-Funktion (Wert wird am Ende hinzugefügt)
 - eine Delete-Funktion (ID wird gelöscht)
 
-
+##### **Ausgeführtes Programm**
+![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/blob/main/Aufgabe%20IV%20-%20LinkedLists/Console.png)
 
 
 
