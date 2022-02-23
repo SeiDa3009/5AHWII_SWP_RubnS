@@ -2,134 +2,136 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
-        self.before = None
-        return
-
-    def has_value(self, value):
-        if self.data == value:
-            return True
-        else:
-            return False
+        self.prev = None
 
 
-class LinkedList:
+class DoubleLinkedList:
     def __init__(self):
         self.head = None
-        self.tail = None
-        return
 
-    def list_length(self):
-        count = 0
+    def append(self, new_data):
+        new_node = Node(new_data)
+        if self.head is None:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            last = last.next
+        last.next = new_node
+        new_node.prev = last
+
+    def insert_after(self, prev_node, new_data):
+        if prev_node is None:
+            print("Error ... Node not in List")
+            return
+
+        new_node = Node(new_data)
+        new_node.next = prev_node.next
+        prev_node.next = new_node
+        new_node.prev = prev_node
+        if new_node.next is not None:
+            new_node.next.prev = new_node
+
+    def insert_before(self, after_node, new_data):
+        if after_node is None:
+            print("Error ... Node not in List")
+            return
+
+        new_node = Node(new_data)
+        if after_node == self.head:
+            new_node.prev = None
+            self.head = new_node
+        else:
+            new_node.prev = after_node.prev.next
+        new_node.next = after_node
+        after_node.prev.next = new_node
+        after_node.prev = new_node
+
+
+    def delete_after(self, prev_node):
+        if prev_node.next is None:
+            return
+        temp = prev_node.next
+        after_del_node = temp.next
+        prev_node.next = after_del_node
+        after_del_node.prev = prev_node
+
+
+    def delete_before(self, before_node):
+        if before_node.prev is None:
+            print("Error")
+            return
+        last = before_node.prev
+        if last.prev is None:
+            print("Error")
+            return
+        before_last = last.prev
+        before_node.prev = before_last
+        before_last.next = before_node
+
+
+    def find(self, node_to_find):
         current_node = self.head
-
-        while current_node is not None:
-            count = count + 1
+        while current_node != None:
+            if current_node.data == node_to_find:
+                return True, current_node
             current_node = current_node.next
-        return count
+        return False, None
 
-    def add_item_in_list(self, item):
-
-        if  isinstance(item, Node):
-            if self.head is None:
-                self.head = item
-                item.before = None
-                item.next = None
-                self.tail = item
-            else:
-                self.tail.next = item
-                item.before = self.tail
-                self.tail = item
-        return
-
-    def output_list(self):
+    def print_output(self):
         current_node = self.head
         output = []
         while current_node is not None:
             output.append(current_node.data)
             current_node = current_node.next
-        print(output)
-
-    def unordered_search(self, value):
-        current_node = self.head
-        node_id = 1
-        results = []
-
-        while current_node is not None:
-            if current_node.has_value(value):
-                results.append(node_id)
-
-            current_node = current_node.next
-            node_id = node_id + 1
-        return results
-
-    def remove_list_item_by_id(self, item_id):
-        current_id = 1
-        current_node = self.head
-
-        while current_node is not None:
-            before_node = current_node.before
-            next_node = current_node.next
-
-            if current_id == item_id:
-                if before_node is not None:
-                    before_node.next = next_node
-                    if next_node is not None:
-                        next_node.before = before_node
-                else:
-                    self.head = next_node
-                    if next_node is not None:
-                        next_node.before = None
-                return
-            current_node = next_node
-            current_id = current_id + 1
-        return
+        return output, len(output)
 
 
-#other Methods
-def add_random():
+def add_start():
     import random
-    length = int(input("Length?:"))
+    length = int(input("Length:"))
     for i in range(length):
-        node_input = Node(random.randint(0,100))
-        llst.add_item_in_list(node_input)
+        item = int(random.randint(0, 100))
+        llst.append(item)
+
+
+def input_data():
+    return int(input("Value: "))
+
+
+def input_position(llst):
+    new_data = int(input("Target-Value: "))
+    if llst.find(new_data)[0]:
+       return llst.find(new_data)[1]
+    else:
+        return None
 
 
 def output():
-    print("lenght: %i" % llst.list_length())
-    llst.output_list()
-
-
-def delete():
-    item_id = int(input("Which item should be removed?: "))
-    llst.remove_list_item_by_id(item_id)
-    output()
-
-
-def search():
-    item_value = int(input("Which value should be searched?: "))
-    print(llst.unordered_search(item_value))
-
-
-def menu():
-    repeat = True
-    answer = None
-    while(repeat):
-        answer = input("Delete [d] - Search[s] - Exit[any]").lower()
-        if answer == "d":
-            delete()
-        elif answer == "s":
-            search()
-        else:
-            repeat = False
-            print("Exit")
+    print("Length: ",llst.print_output()[1])
+    print(llst.print_output()[0])
 
 
 if __name__ == '__main__':
-    # Double-LinkedList:
-    # Basic:
-    llst = LinkedList()
-    add_random()
+    llst = DoubleLinkedList()
+    add_start()
+    print(llst.print_output()[0])
+
+    print("\nInsert_After")
+    llst.insert_after(input_position(llst), input_data())
     output()
 
-    # Addition
-    menu()
+    print("\nInsert_Before")
+    llst.insert_before(input_position(llst), input_data())
+    output()
+
+    print("\nDelete_After")
+    llst.delete_after(input_position(llst))
+    output()
+
+    print("\nDelete_Before")
+    llst.delete_before(input_position(llst))
+    output()
+
+    print("\nFind")
+    print("Gefunden: ", llst.find(input_data())[0])

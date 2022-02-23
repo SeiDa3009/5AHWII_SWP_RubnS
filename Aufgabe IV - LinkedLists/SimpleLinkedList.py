@@ -1,134 +1,174 @@
-#First attempt
 class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
         return
 
-    def has_value(self, value):
-        #Compare Value with the Node data
-        if self.data == value:
-            return True
-        else:
-            return False
-
-
-class LinkedList:
+class SimpleLinkedList:
     def __init__(self):
         self.head = None
-        self.trail = None
-        return
 
-    def add_item_in_list(self, item):
-        if not isinstance(item, Node):
-            item = Node(item)
-
+    def append(self, new_data):
+        new_node = Node(new_data)
         if self.head is None:
-            self.head = item
-        else:
-            self.trail.next = item
+            self.head = new_node
+            return
+        last = self.head
+        while(last.next):
+            last = last.next
+        last.next = new_node
 
-        self.trail = item
-        return
+    def push(self, new_data):
+        new_node = Node(new_data)
+        new_node.next = self.head
+        self.head = new_node
 
-    def list_length(self):
+    def insert_after(self, previous_node, new_data):
+        if previous_node is None:
+            print("Error ... Node not in List")
+            return
+        new_node = Node(new_data)
+        new_node.next = previous_node.next
+        previous_node.next = new_node
+
+    def delete_after(self, previous_node):
+        if previous_node is None:
+            print("Error ... Node not in List")
+            return
+
+        if previous_node.next is None:
+            return
+
+        temp = previous_node.next
+        after_del_node = temp.next
+        previous_node.next = after_del_node
+
+    def find(self, node_to_find):
+        current_node = self.head
+        while current_node != None:
+            if current_node.data == node_to_find:
+                return True, current_node
+            current_node = current_node.next
+        return False, None
+
+    def print_length(self):
         count = 0
         current_node = self.head
 
         while current_node is not None:
             count = count + 1
             current_node = current_node.next
-        return count
+        print("Length: ", count)
 
-    def output_list(self):
+    def print_list(self):
         current_node = self.head
         output = []
+
         while current_node is not None:
             output.append(current_node.data)
             current_node = current_node.next
         print(output)
 
-    def unordered_search(self, value):
-        current_node = self.head
-        node_id = 1
-        results = []
 
-        while current_node is not None:
-            if current_node.has_value(value):
-                results.append(node_id)
-
-            current_node = current_node.next
-            node_id = node_id + 1
-
-        return results
-
-    def remove_list_item_by_id(self, item_id):
-        current_id = 1
-        current_node = self.head
-        node_before = None
-
-        while current_node is not None:
-            if current_id == item_id:
-                if node_before is not None:
-                    node_before.next = current_node.next
-                else:
-                    self.head = current_node.next
-                    return
-
-            node_before = current_node
-            current_node = current_node.next
-            current_id = current_id + 1
-
-        return
-
-
-#other Methods
-def add_random():
+def add_start(llst):
     import random
-    length = int(input("Length?:"))
+    length = int(input("Length:"))
     for i in range(length):
-        node_input = random.randint(0,100)
-        llst.add_item_in_list(node_input)
+        item = int(random.randint(0, 100))
+        llst.append(item)
 
 
-def output():
-    print("lenght: %i" % llst.list_length())
-    llst.output_list()
+def input_data():
+    return int(input("Value: "))
 
 
-def delete():
-    item_id = int(input("Which item should be removed?: "))
-    llst.remove_list_item_by_id(item_id)
-    output()
+def input_position(llst):
+    new_data = int(input("Target-Value: "))
+    if llst.find(new_data)[0]:
+       return llst.find(new_data)[1]
+    else:
+        return None
 
 
-def search():
-    item_value = int(input("Which value should be searched?: "))
-    print(llst.unordered_search(item_value))
+def print_output(llst):
+    llst.print_length()
+    llst.print_list()
+
+
+def print_main_oppo():
+    print("Delete [d]")
+    print("Find [f]")
+    print("Add [a]")
+    print("Exit [any other]")
+
+
+def print_del_oppo():
+    print("After [a]")
+
+
+def print_add_oppo():
+    print("After [a]")
+    print("Push [p]")
+
+
+def add_menu():
+    repeat = True
+    answer = None
+    print_add_oppo()
+    while(repeat):
+        answer = input("Answer: ").lower()
+        if answer == "a":
+            llst.insert_after(input_position(llst))
+            print_output(llst)
+        elif answer == "p":
+            llst.push(input_data())
+            print_output()
+        else:
+            repeat = False
+            menu()
+
+
+def delete_menu():
+    repeat = True
+    answer = None
+    print_del_oppo()
+    while(repeat):
+        answer = input("Answer: ").lower()
+        if answer == "a":
+            llst.delete_after(input_position(llst))
+            print_output(llst)
+        else:
+            repeat = False
+            menu()
 
 
 def menu():
     repeat = True
     answer = None
+    print_main_oppo()
     while(repeat):
-        answer = input("Delete [d] - Search[s] - Exit[any]").lower()
+        answer = input("Answer: ").lower()
         if answer == "d":
-            delete()
-        elif answer == "s":
-            search()
+            delete_menu()
+        elif answer == "f":
+            print("Gefunden: ", llst.find(input_data())[0])
+        elif answer == "a":
+            add_menu()
         else:
             repeat = False
             print("Exit")
 
 
-
 if __name__ == '__main__':
-#Simple-LinkedList:
-    #Basic:
-    llst = LinkedList()
-    add_random()
-    output()
-
-    #Addition
+    llst = SimpleLinkedList()
+    add_start(llst)
+    llst.print_list()
     menu()
+
+
+
+
+
+
+
 
