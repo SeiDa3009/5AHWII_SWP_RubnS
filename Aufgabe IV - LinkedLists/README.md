@@ -29,7 +29,7 @@ Weiters wird auch der Zeitunterschied zwischen der Sortierung von LinkedList und
     - append
     
 ##### **Aufwandsklassen:**
-![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/blob/main/Aufgabe%20IV%20-%20LinkedLists/Aufwandsklasse.png)
+![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/blob/main/Aufgabe%20IV%20-%20LinkedLists/Aufwandsklassen.png)
 
 ##### **Ausgeführtes Programm für Zeitermittlung**
 ![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/blob/main/Aufgabe%20IV%20-%20LinkedLists/Console.png)
