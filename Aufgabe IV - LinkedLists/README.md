@@ -27,6 +27,7 @@ Weiters wird auch der Zeitunterschied zwischen der Sortierung von LinkedList und
 - Zusätzlich:
     - push
     - append
+    - sum
     
 ##### **Aufwandsklassen:**
 ![](https://github.com/SeiDa3009/5AHWII_SWP_RubnS/blob/main/Aufgabe%20IV%20-%20LinkedLists/Aufwandsklassen.png)
