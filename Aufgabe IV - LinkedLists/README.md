@@ -1,6 +1,6 @@
 # **Linked Lists**
 ##### **Was macht dieses Programm?**
-Das Programm umfasst eine einfache LinkedList und eine doppelte LinkedList.
+Das Programm umfasst eine einfache LinkedList, eine doppelte LinkedList und eine ArrayList.
 Dazu sind ein paar Funktionen integriert worden.
 Weiters wird auch der Zeitunterschied zwischen der Sortierung von LinkedList und ArrayList gemessen
 
@@ -12,7 +12,7 @@ Weiters wird auch der Zeitunterschied zwischen der Sortierung von LinkedList und
     - Delete_Before
     - Find
 - 03.03.2022:
-    - sort_ASC
+    - sort_ASC 
     - sort_DESC
     - mit Insertionsort
 - 10.03.2022:
