@@ -8,6 +8,8 @@ class SimpleLinkedList:
     def __init__(self):
         self.head = None
 
+    #---     ADD     ---
+
     def append(self, new_data):
         new_node = Node(new_data)
         if self.head is None:
@@ -31,6 +33,8 @@ class SimpleLinkedList:
         new_node.next = previous_node.next
         previous_node.next = new_node
 
+    #---     DELETE     ---
+
     def delete_after(self, previous_node):
         if previous_node is None:
             print("Error ... Node not in List")
@@ -43,13 +47,17 @@ class SimpleLinkedList:
         after_del_node = temp.next
         previous_node.next = after_del_node
 
-    def find(self, node_to_find):
+    #---     FIND     ---
+
+    def find_by_value(self, node_to_find):
         current_node = self.head
         while current_node != None:
             if current_node.data == node_to_find:
                 return True, current_node
             current_node = current_node.next
         return False, None
+
+    #---     OUTPUT     ---
 
     def print_length(self):
         count = 0
@@ -69,10 +77,20 @@ class SimpleLinkedList:
             current_node = current_node.next
         print(output)
 
+    #---     SUM     ---
 
-def add_start(llst):
+    def sum(self):
+        key = self.head
+        sum = 0
+        while key.next is not None:
+            sum = key.data + sum
+            key = key.next
+        return sum
+
+def add_start(llst, length = None):
     import random
-    length = int(input("Length:"))
+    if length is None:
+        length = int(input("Length:"))
     for i in range(length):
         item = int(random.randint(0, 100))
         llst.append(item)
@@ -84,8 +102,8 @@ def input_data():
 
 def input_position(llst):
     new_data = int(input("Target-Value: "))
-    if llst.find(new_data)[0]:
-       return llst.find(new_data)[1]
+    if llst.find_by_value(new_data)[0]:
+       return llst.find_by_value(new_data)[1]
     else:
         return None
 
@@ -94,76 +112,27 @@ def print_output(llst):
     llst.print_length()
     llst.print_list()
 
-
-def print_main_oppo():
-    print("Delete [d]")
-    print("Find [f]")
-    print("Add [a]")
-    print("Exit [any other]")
-
-
-def print_del_oppo():
-    print("After [a]")
-
-
-def print_add_oppo():
-    print("After [a]")
-    print("Push [p]")
-
-
-def add_menu():
-    repeat = True
-    answer = None
-    print_add_oppo()
-    while(repeat):
-        answer = input("Answer: ").lower()
-        if answer == "a":
-            llst.insert_after(input_position(llst))
-            print_output(llst)
-        elif answer == "p":
-            llst.push(input_data())
-            print_output()
-        else:
-            repeat = False
-            menu()
-
-
-def delete_menu():
-    repeat = True
-    answer = None
-    print_del_oppo()
-    while(repeat):
-        answer = input("Answer: ").lower()
-        if answer == "a":
-            llst.delete_after(input_position(llst))
-            print_output(llst)
-        else:
-            repeat = False
-            menu()
-
-
-def menu():
-    repeat = True
-    answer = None
-    print_main_oppo()
-    while(repeat):
-        answer = input("Answer: ").lower()
-        if answer == "d":
-            delete_menu()
-        elif answer == "f":
-            print("Gefunden: ", llst.find(input_data())[0])
-        elif answer == "a":
-            add_menu()
-        else:
-            repeat = False
-            print("Exit")
-
-
-if __name__ == '__main__':
-    llst = SimpleLinkedList()
+def task_24_02(llst:SimpleLinkedList):
     add_start(llst)
-    llst.print_list()
-    menu()
+    print_output(llst)
+
+    print("\nInsert_After")
+    llst.insert_after(input_position(llst), input_data())
+    print_output(llst)
+
+    print("\nDelete_After")
+    llst.delete_after(input_position(llst))
+    print_output(llst)
+
+    print("\nPush")
+    llst.push(input_data())
+    print_output(llst)
+
+    print("\nFind")
+    print("Gefunden: ", llst.find_by_value(input_data())[0])
+
+
+
 
 
 
